@@ -147,6 +147,17 @@ section{position:relative;padding:clamp(80px,12vw,150px) 0}
 .craft-row:hover h3{color:var(--plum);transform:translateX(8px)}
 .craft-row .tags{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);text-align:right;max-width:30ch}
 @media(max-width:640px){.craft-row{grid-template-columns:auto 1fr;gap:14px}.craft-row .tags{grid-column:2;text-align:left;margin-top:6px}}
+a.craft-row{text-decoration:none;color:inherit}
+.app-row{align-items:center}
+.app-logo{width:60px;height:60px;flex:none;display:flex;align-items:center;justify-content:center;
+  background:#fff;border-radius:14px;border:1px solid var(--line);padding:9px;
+  box-shadow:0 4px 14px rgba(90,50,71,.08);overflow:hidden}
+.app-logo img{width:100%;height:100%;object-fit:contain;display:block}
+.app-info{min-width:0}
+.app-desc{margin-top:6px;font-size:.86rem;color:var(--ink-soft);max-width:52ch;font-family:var(--sans);letter-spacing:0}
+.app-row .tags{transition:color .3s var(--ease)}
+.app-row:hover .tags{color:var(--plum)}
+@media(max-width:640px){.app-logo{width:46px;height:46px;padding:7px;border-radius:11px}}
 
 /* ---------- WORK ---------- */
 .work{display:grid;gap:clamp(60px,9vw,120px)}
@@ -214,6 +225,7 @@ section{position:relative;padding:clamp(80px,12vw,150px) 0}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0}
 .chip{font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);
   border:1px solid var(--line);border-radius:30px;padding:7px 14px}
+.work-links{display:flex;flex-wrap:wrap;gap:10px 26px}
 .work-link{display:inline-flex;align-items:center;gap:10px;font-size:.72rem;letter-spacing:.22em;
   text-transform:uppercase;color:var(--plum);border-bottom:1px solid var(--gold);padding-bottom:4px}
 .work-link:hover{gap:16px;transition:gap .3s var(--ease)}
@@ -298,23 +310,6 @@ footer .fl{font-family:var(--script);font-size:1.7rem;color:var(--gold);display:
   50%{transform:translate3d(2%,1.5%,0) scale(1.06)}
   100%{transform:translate3d(-1%,2%,0) scale(1.03)}}
 
-/* kursor kustom: titik + cincin yang menyusul, membesar saat hover interaktif */
-@media(hover:hover) and (pointer:fine){
-  body{cursor:none}
-  a,button,.work-media,[data-cursor]{cursor:none}
-  .cur-ring,.cur-dot{position:fixed;top:0;left:0;z-index:9999;pointer-events:none;
-    border-radius:50%;mix-blend-mode:multiply}
-  .cur-ring{width:38px;height:38px;margin:-19px 0 0 -19px;border:1px solid var(--mauve);
-    transition:width .3s var(--ease),height .3s var(--ease),margin .3s var(--ease),
-      background .3s var(--ease),border-color .3s var(--ease),opacity .3s;opacity:0}
-  .cur-dot{width:6px;height:6px;margin:-3px 0 0 -3px;background:var(--plum);
-    transition:opacity .3s,transform .18s var(--ease);opacity:0}
-  .cur-ring.on{width:64px;height:64px;margin:-32px 0 0 -32px;
-    background:rgba(142,95,114,.10);border-color:var(--plum)}
-  .cur-dot.on{transform:scale(.4)}
-  .cur-ready .cur-ring,.cur-ready .cur-dot{opacity:1}
-}
-
 /* hero: lapisan parallax (sprig, portrait, glow) bergerak beda-beda */
 .hero{isolation:isolate}
 .hero-glow{position:absolute;z-index:-1;width:52vw;height:52vw;max-width:640px;max-height:640px;
@@ -349,7 +344,6 @@ section.seen::before{transform:translateX(-50%) scaleX(1);opacity:.5}
   .aurora,#ambient{display:none}
   .w > i{transform:none!important;opacity:1!important}
   section::before{display:none}
-  body{cursor:auto!important}
 }
 
 /* ============ PANGGUNG HERO: DOCK · LIQUID METAL · KARTU PORTAL ============ */
@@ -737,8 +731,6 @@ section.seen::before{transform:translateX(-50%) scaleX(1);opacity:.5}
 <body>
 <div class="aurora" aria-hidden="true"></div>
 <div id="ambient" aria-hidden="true"><canvas></canvas></div>
-<div class="cur-ring" aria-hidden="true"></div>
-<div class="cur-dot" aria-hidden="true"></div>
 <div class="grain"></div>
 <div class="seam"></div>
 
@@ -763,6 +755,12 @@ section.seen::before{transform:translateX(-50%) scaleX(1);opacity:.5}
         <svg viewBox="0 0 16 16"><rect x="2.2" y="2.2" width="5" height="5" rx="1.2"/><rect x="8.8" y="2.2" width="5" height="5" rx="1.2"/><rect x="2.2" y="8.8" width="5" height="5" rx="1.2"/><rect x="8.8" y="8.8" width="5" height="5" rx="1.2"/></svg>
       </span>
       <span class="lbl-nav">Karya</span>
+    </a>
+    <a class="dock-item" data-dock data-spec href="#apps" style="--d:305ms">
+      <span class="glyph" aria-hidden="true">
+        <svg viewBox="0 0 16 16"><rect x="1.8" y="2.4" width="12.4" height="11.2" rx="1.6"/><path d="M1.8 5.4h12.4"/><circle cx="3.6" cy="3.9" r=".5" fill="currentColor" stroke="none"/></svg>
+      </span>
+      <span class="lbl-nav">Aplikasi</span>
     </a>
     <a class="dock-item" data-dock data-spec href="#contact" style="--d:330ms">
       <span class="glyph" aria-hidden="true">
@@ -971,7 +969,10 @@ section.seen::before{transform:translateX(-50%) scaleX(1);opacity:.5}
           <div class="meta">Fashion &amp; Streetwear — Salatiga</div>
           <p>Sebagai Business Manager sekaligus pemegang media sosialnya, saya menyusun arah konten, membangun brand awareness, dan memproduksi video pendek yang menaikkan jangkauan akun.</p>
           <div class="chips"><span class="chip">Content Calendar</span><span class="chip">Reels / TikTok</span><span class="chip">Branding</span></div>
-          <a class="work-link" href="https://www.instagram.com/ethowear.id" target="_blank" rel="noopener">Lihat di Instagram →</a>
+          <div class="work-links">
+            <a class="work-link" href="https://www.instagram.com/ethowear.id" target="_blank" rel="noopener">Lihat di Instagram →</a>
+            <a class="work-link" href="https://www.ethowearcollection.com" target="_blank" rel="noopener">Kunjungi Situs →</a>
+          </div>
         </div>
       </article>
 
@@ -999,6 +1000,50 @@ section.seen::before{transform:translateX(-50%) scaleX(1);opacity:.5}
         </div>
       </article>
 
+    </div>
+  </div>
+</section>
+
+<!-- APPS -->
+<section id="apps" class="alt">
+  <div class="shell">
+    <div class="sec-head reveal">
+      <span class="flourish">Di luar media sosial</span>
+      <h2>Aplikasi &amp; <em>web</em> yang saya bangun</h2>
+    </div>
+    <div class="craft">
+      <a class="craft-row app-row reveal" href="https://umgap-ai.my.id" target="_blank" rel="noopener">
+        <span class="app-logo"><img src="img/umgap.png" alt="Logo UMGAP" loading="lazy"></span>
+        <span class="app-info">
+          <h3>UMGAP</h3>
+          <p class="app-desc">Platform "Pembantu UMKM" — asisten digital untuk pelaku usaha mikro, kecil, dan menengah.</p>
+        </span>
+        <span class="tags">Aplikasi Web →</span>
+      </a>
+      <a class="craft-row app-row reveal" href="https://distrik-app.onrender.com" target="_blank" rel="noopener">
+        <span class="app-logo"><img src="img/distrik.png" alt="Logo Distrik Camong" loading="lazy"></span>
+        <span class="app-info">
+          <h3>Distrik Camong</h3>
+          <p class="app-desc">Aplikasi brand susu segar UMKM dengan program membership &amp; poin loyalti.</p>
+        </span>
+        <span class="tags">Aplikasi Web →</span>
+      </a>
+      <a class="craft-row app-row reveal" href="https://arvlogam.my.id" target="_blank" rel="noopener">
+        <span class="app-logo"><img src="img/arv.png" alt="Logo ARV Logam" loading="lazy"></span>
+        <span class="app-info">
+          <h3>ARV Logam</h3>
+          <p class="app-desc">Halaman web kehadiran digital untuk brand ARV Logam.</p>
+        </span>
+        <span class="tags">Website →</span>
+      </a>
+      <a class="craft-row app-row reveal" href="https://www.ethowearcollection.com" target="_blank" rel="noopener">
+        <span class="app-logo"><img src="img/ethowear.png" alt="Logo Ethowear Collection" loading="lazy"></span>
+        <span class="app-info">
+          <h3>Ethowear Collection</h3>
+          <p class="app-desc">Situs katalog untuk koleksi fashion &amp; streetwear Ethowear.</p>
+        </span>
+        <span class="tags">Website →</span>
+      </a>
     </div>
   </div>
 </section>
@@ -1070,27 +1115,6 @@ section.seen::before{transform:translateX(-50%) scaleX(1);opacity:.5}
   const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
   const fine   = matchMedia('(hover:hover) and (pointer:fine)').matches;
   const lerp=(a,b,t)=>a+(b-a)*t, clamp=(v,a,b)=>v<a?a:v>b?b:v;
-
-  /* ---- kursor kustom (titik cepat + cincin menyusul) ---- */
-  if(fine && !reduce){
-    const ring=document.querySelector('.cur-ring'), dot=document.querySelector('.cur-dot');
-    let mx=innerWidth/2,my=innerHeight/2, rx=mx,ry=my;
-    addEventListener('pointermove',e=>{
-      mx=e.clientX; my=e.clientY;
-      dot.style.transform='translate3d('+mx+'px,'+my+'px,0)';
-      document.body.classList.add('cur-ready');
-    },{passive:true});
-    const hoverSel='a,button,.work-media,[data-cursor],.dock-item,.knob';
-    document.querySelectorAll(hoverSel).forEach(el=>{
-      el.addEventListener('mouseenter',()=>{ring.classList.add('on');dot.classList.add('on');});
-      el.addEventListener('mouseleave',()=>{ring.classList.remove('on');dot.classList.remove('on');});
-    });
-    (function tick(){
-      rx=lerp(rx,mx,.18); ry=lerp(ry,my,.18);
-      ring.style.transform='translate3d('+rx+'px,'+ry+'px,0)';
-      requestAnimationFrame(tick);
-    })();
-  }
 
   /* ---- latar hidup: partikel debu emas melayang lembut ---- */
   if(!reduce){
@@ -1313,6 +1337,34 @@ if(!reduce){
 // ---------- DOWNLOAD PORTOFOLIO (PDF via dialog cetak browser) ----------
 const dlPdf=document.getElementById('downloadPdf');
 if(dlPdf)dlPdf.addEventListener('click',()=>window.print());
+
+// ---------- KOTAK CROP TOMBOL "LIHAT KARYA": ukur asli, jangan tebak ----------
+// .liquid-stage berpadding sangat besar (tempat efeknya "berdarah"), dan
+// .pill-clip cuma jendela overflow:hidden di atasnya. Lebar/tinggi jendela itu
+// sebelumnya angka tebakan dalam satuan --u — meleset dikit saja, sisa ruang
+// di kiri/kanan tombol bikin sudut lengkung .pill-clip menampakkan warna latar
+// di baliknya (seperti bulan sabit), kelihatan jelas di layar sempit. Di sini
+// jendelanya diukur pas dari tombol sungguhan tiap kali tata letak berubah.
+(function(){
+  const BLEED=16; // ruang napas di tiap sisi, px CSS
+  function fitPill(clip){
+    const btn=clip.querySelector('.liquid-button');
+    const pill=clip.querySelector('.pill');
+    if(!btn||!btn.offsetWidth||!btn.offsetHeight)return;
+    const w=btn.offsetWidth+BLEED*2, h=btn.offsetHeight+BLEED*2;
+    clip.style.width=w+'px';
+    clip.style.height=h+'px';
+    clip.style.borderRadius=(h/2)+'px';
+    if(pill)pill.style.setProperty('--mr',(h/2)+'px');
+  }
+  function fitAll(){document.querySelectorAll('.pill-clip').forEach(fitPill);}
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitAll);
+  addEventListener('load',fitAll);
+  let t=null;
+  addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(fitAll,120);},{passive:true});
+  fitAll();
+  setTimeout(fitAll,400);
+})();
 </script>
 <script>
 /* ====================================================================== *
